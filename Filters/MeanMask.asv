@@ -1,0 +1,17 @@
+function [ output] = MeanMask( unFilteredImage,W,H )
+%UNTITLED5 Summary of this function goes here
+%   Detailed explanation goes here
+W=str2double(W);
+H=str2double(H);
+mask=ones(H,W);
+sum=W*H;
+it1=(H-1)/2;
+it2=(W-1)/2;
+B=padarray(unFilteredImage,[it1,it2]);
+
+for i=1 :size(unFilteredImage,1)
+    for j=2:size(unFilteredImage,2)
+        output(i-it
+
+end
+

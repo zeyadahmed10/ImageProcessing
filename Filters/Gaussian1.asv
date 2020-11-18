@@ -1,0 +1,30 @@
+function [ output ] = Gaussian1(unFilteredImage,Size,Sig)
+%UNTITLED8 Summary of this function goes here
+%   Detailed explanation goes here
+Size=str2double(Size);
+Sig=str2double(Sig);
+it=(Size-1)/2;
+doubleSigSquare = 2*Sig*Sig;
+Mask=zeros(Size);
+B=padarray(unFilteredImage,[it,it]);
+msum = 0;
+maskCenter=(Size-1)/2;
+maskCenter=maskCenter+1;
+for i=1:Size
+    for j=1:Size
+        %x = floor((Size-3) / 2);
+        %y = floor((Size-3) / 2);
+        %Mask(i, j) = (1/(doubleSigSquare*pi)) * exp(-(x*x + y*y) / doubleSigSquare);
+        sq_dist=(i-maskCenter)^2+(j-maskCenter)^2;
+        Mask(i,j)=exp(-1*(sq_dist)/(doubleSigSquare));
+        msum = msum + Mask(i, j);
+    end
+end
+Mask = Mask/msum;
+for i=1+it :size(unFilteredImage,1)
+    for j=1+it:size(unFilteredImage,2)
+        output(i-it,j-it)=(sum(sum(Mask.*B(i-it:i+it,j-it:j+it))));
+    end
+end
+end
+
